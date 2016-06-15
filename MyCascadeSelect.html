@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyHtml.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+  </head>
+  
+  <body>
+    This is my HTML page. <br>
+    
+    <select id="sel_provinces" onchange="cg(this)">
+    	
+    </select>
+    
+    <select id="sel_cities"></select>
+    
+    <script type="text/javascript">
+    	
+    	function Province(name,value,cities){
+    		this.name=name;
+    		this.value=value;
+    		this.cities=cities;
+    	}
+    	
+    	function City(name,value){
+    		this.name=name;
+    		this.value=value;
+    	}
+    	
+    	var sc_cd=new City("成都","chengdu");
+    	var sc_my=new City("绵阳","mianyang");
+    	var sc_dy=new City("德阳","deyang");
+    	var sc_cities=[sc_cd,sc_my,sc_dy];
+    	var sc=new Province("四川","sichuan",sc_cities);
+    	
+    	//alert(sc.cities[0].name);
+    	var hn_zz=new City("郑州","zhengzhou");
+    	var hn_ly=new City("洛阳","luoyang");
+    	var hn_kf=new City("开封","kaifeng");
+    	var hn_cities=[hn_zz,hn_ly,hn_kf];
+    	var hn=new Province("河南","henan",hn_cities);
+    	
+    	var provinces=[sc,hn];
+    	
+    	var selectTag=document.getElementById("sel_provinces");
+    	
+    	for(var i=0;i<provinces.length;i++){
+    		var opt=new Option(provinces[i].name,provinces[i].value);
+    		selectTag.options.add(opt);
+    	}
+    	
+    	var citySelectTag=document.getElementById("sel_cities");
+    	
+    	function showCities(){
+    		for(var i=0;i<provinces.length;i++){
+    			if(selectTag.value==provinces[i].value){
+    				var currentCities=provinces[i].cities;
+    				citySelectTag.options.length=0;
+    				for(var j=0;j<currentCities.length;j++){
+    					var city_option=new Option(currentCities[j].name,currentCities[j].value);
+    					citySelectTag.options.add(city_option);
+    				}
+    				break;
+    			}
+    		}
+    	}
+    	
+    	//在页面加载的时候调用该函数显示city
+    	showCities();
+    	
+    	//当省份下啦列表的值发生改变的时候调用
+    	//showCities()函数显示city
+    	function cg(e){
+    	
+    		showCities();
+    	}
+    	
+    	
+    	//向select标签添加option节点的方式一
+    	//selectTag.options.add(new Option("aaa","aaa"));
+    	
+    	//向select标签添加option节点的方式二
+    	/* var optTag=document.createElement("option");
+    	optTag.innerHTML="四川";
+    	optTag.setAttribute("value","sichuan");
+    	selectTag.appendChild(optTag);*/
+    	
+    </script>
+  </body>
+</html>
